@@ -1,0 +1,9 @@
+requests
+aiohttp
+httpx
+yfinance
+python-binance
+pydantic
+pydantic_settings 
+minio
+kafka-python

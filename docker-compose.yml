@@ -1,0 +1,138 @@
+services:
+  postgres:
+    extends:
+      file: src/compose/database.yml
+      service: postgres
+    networks:
+      - network
+
+  redis:
+    extends:
+      file: src/compose/database.yml
+      service: redis
+    networks:
+      - network
+
+  zookeeper:
+    extends:
+      file: src/compose/messaging.yml
+      service: zookeeper
+    networks:
+      - network
+
+  kafka:
+    extends:
+      file: src/compose/messaging.yml
+      service: kafka
+    networks:
+      - network
+
+  kafka-ui:
+    extends:
+      file: src/compose/messaging.yml
+      service: kafka-ui
+    networks:
+      - network
+
+  minio:
+    extends:
+      file: src/compose/storage.yml
+      service: minio
+    networks:
+      - network
+
+  spark:
+    extends:
+      file: src/compose/spark.yml
+      service: spark
+    networks:
+      - network
+
+  spark-worker:
+    extends:
+      file: src/compose/spark.yml
+      service: spark-worker
+    networks:
+      - network
+
+  airflow-init:
+    extends:
+      file: src/compose/airflow.yml
+      service: airflow-init
+    networks:
+      - network
+
+  airflow-webserver:
+    extends:
+      file: src/compose/airflow.yml
+      service: airflow-webserver
+    networks:
+      - network
+
+  airflow-scheduler:
+    extends:
+      file: src/compose/airflow.yml
+      service: airflow-scheduler
+    networks:
+      - network
+
+  superset:
+    extends:
+      file: src/compose/visualization.yml
+      service: superset
+    networks:
+      - network
+
+  opensearch:
+    extends:
+      file: src/compose/visualization.yml
+      service: opensearch
+    networks:
+      - network
+
+  opensearch-dashboards:
+    extends:
+      file: src/compose/visualization.yml
+      service: opensearch-dashboards
+    networks:
+      - network
+
+  opensearch-bridge:
+    extends:
+      file: src/openseach/docker-compose.yml
+      service: opensearch-bridge
+    networks:
+      - network
+
+  opensearch-setup:
+    extends:
+      file: src/openseach/docker-compose.yml
+      service: opensearch-setup
+    networks:
+      - network
+
+  prometheus:
+    extends:
+      file: src/compose/monitoring.yml
+      service: prometheus
+    networks:
+      - network
+
+  grafana:
+    extends:
+      file: src/compose/monitoring.yml
+      service: grafana
+    networks:
+      - network
+
+volumes:
+  postgres-data:
+  redis-data:
+  minio-data:
+  prometheus-data:
+  grafana-data:
+  opensearch-data:
+
+networks:
+  network:
+    driver: bridge
