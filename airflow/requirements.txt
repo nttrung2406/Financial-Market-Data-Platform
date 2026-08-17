@@ -1,0 +1,13 @@
+apache-airflow-providers-apache-kafka
+apache-airflow-providers-postgres
+apache-airflow-providers-docker
+apache-airflow-providers-cncf-kubernetes
+apache-airflow-providers-amazon
+pyspark
+delta-spark
+kafka-python
+boto3
+minio
+psycopg2-binary
+pandas
+pyarrow
