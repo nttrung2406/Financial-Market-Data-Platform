@@ -1,6 +1,6 @@
 # Financial Market Data Platform
 
-A fully containerised end-to-end data pipeline that ingests real-time stock, crypto, and forex market data, processes it with Apache Spark, stores it in a Delta Lake and a PostgreSQL warehouse, and visualises it through Apache Superset and OpenSearch Dashboards.
+A fully containerised end-to-end data pipeline that ingests real-time stock, crypto, and forex market data, processes it with Apache Spark, stores it in a Delta Lake and a PostgreSQL warehouse, predicts uptrend and downtrend stocks with SparkML and visualises it through Apache Superset and OpenSearch Dashboards.
 
 ---
 
@@ -74,7 +74,7 @@ A fully containerised end-to-end data pipeline that ingests real-time stock, cry
 ## Prerequisites
 
 - Docker ≥ 24 and Docker Compose ≥ 2.20
-- At least **8 GB RAM** allocated to Docker (Spark + OpenSearch are memory-hungry)
+- At least **8 GB RAM** allocated to Docker
 - API keys in `.env` (see below)
 
 ---
@@ -213,28 +213,6 @@ dim_market         — market / asset class lookup
 Views pre-computed for dashboards: `vw_stock_live`, `vw_crypto_live`, `vw_forex_live`, `vw_stock_performance` (gainers/losers), `vw_stock_volume_hourly`, `vw_stock_volume_daily`, `vw_moving_averages`, `vw_ohlc_stock`, `vw_ohlc_crypto`, `vw_correlation_btc_eth`, `vw_correlation_nasdaq_btc`.
 
 ---
-
-## Project Structure
-
-```
-financial_platform/
-├── docker-compose.yml          # top-level orchestration
-├── main.py                     # standalone runner (no Airflow)
-├── .env                        # API keys and service credentials
-└── src/
-    ├── airflow/                # Airflow Dockerfile + requirements
-    ├── compose/                # per-service compose fragments
-    ├── dags/                   # Airflow DAGs (stock / crypto / forex)
-    ├── ingestion/              # Python ingestion library
-    │   ├── providers/          #   API clients (TwelveData, Binance, ExchangeRate)
-    │   ├── services/           #   fetch → model → MinIO + Kafka
-    │   └── pipelines/          #   pipeline orchestration
-    ├── openseach/              # OpenSearch bridge + dashboard setup
-    ├── spark/                  # Spark Dockerfile
-    ├── spark_jobs/             # PySpark streaming + batch jobs
-    ├── superset/               # Superset config + bootstrap
-    └── warehouse/              # PostgreSQL DDL + analytical views
-```
 
 ---
 
